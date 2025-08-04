@@ -51,7 +51,7 @@ T = st.number_input("T")
 delta = st.number_input("delta")
 
 #Cost of early replacement after time lag delta
-def Cep(time_lag,C1,C2,C3):
+def Cep(time_lag):
     if time_lag <= delta_lim:
         Cep = C1*time_lag + C2
     else:
@@ -726,4 +726,5 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
