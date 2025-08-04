@@ -42,8 +42,11 @@ st.markdown("Enter the maintenance policy decision variables:")
 
 # Entrada de parâmetros
 L = st.number_input("L")
+L = int(L)
 M = st.number_input("M")
+M = int(M)
 N = st.number_input("N")
+N = int(N)
 T = st.number_input("T")
 delta = st.number_input("delta")
 
@@ -723,3 +726,4 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
