@@ -688,6 +688,7 @@ def ANS(L,M,N,T,delta):
         Cep_maxs = rd.uniform((1-var/100)*Cep_max, (1+var/100)*Cep_max)
         Dps = rd.uniform((1-var/100)*Dp, (1+var/100)*Dp)
         Dfs = rd.uniform((1-var/100)*Df, (1+var/100)*Df)
+        print(beta_xs,eta_xs,beta_hs,eta_hs,lbdas,Cps,Cops,Cis,Cois,Cfs,Cep_maxs,delta_min,delta_lim,Dps,Dfs)
         P_total, EC, EV, ED, cost_rate, MTBOF, availability, P1, P2, P3, P4, P5, P6 = policy(L,M,N,T,delta,beta_xs,eta_xs,beta_hs,eta_hs,lbdas,Cps,Cops,Cis,Cois,Cfs,Cep_maxs,delta_min,delta_lim,Dps,Dfs)
         sample_cr[i] = cost_rate
         sample_mtbof[i] = MTBOF
@@ -718,6 +719,7 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
 
