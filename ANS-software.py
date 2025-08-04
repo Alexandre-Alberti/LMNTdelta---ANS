@@ -50,26 +50,18 @@ N = int(N)
 T = st.number_input("T")
 delta = st.number_input("delta")
 
-#Cost of early replacement after time lag delta
-def Cep(time_lag):
-    if time_lag <= delta_lim:
-        Cepval = C1*time_lag + C2
-    else:
-        Cepval = C3
-    return (Cepval)
-
 def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,detal_lim,Dp,Df):
     
     C1 = (Cp - Cep_max)/(delta_lim - delta_min)
     C2 = Cep_max - C1*delta_lim
     C3 = Cp
      
-    def Cep(time_lag,C1,C2,C3):
+    def Cep(time_lag):
         if time_lag <= delta_lim:
-            Cep = C1*time_lag + C2
+            Cep_val = C1*time_lag + C2
         else:
-            Cep = C3
-        return (Cep)
+            Cep_val = C3
+        return (Cep_val)
     
     Z = int(delta / T)
     Y = max(0, N - Z - 1)
@@ -726,6 +718,7 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
 
