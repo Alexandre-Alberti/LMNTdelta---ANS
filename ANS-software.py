@@ -670,11 +670,11 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
 
 def ANS(L,M,N,T,delta):
     
-    sample_cr = np.zeros(200)
-    sample_mtbof = np.zeros(200)
-    sample_av = np.zeros(200)
+    sample_cr = np.zeros(50)
+    sample_mtbof = np.zeros(50)
+    sample_av = np.zeros(50)
     
-    for i in range(0,200):
+    for i in range(0,50):
         beta_xs = rd.uniform((1-var/100)*beta_x, (1+var/100)*beta_x)
         eta_xs = rd.uniform((1-var/100)*eta_x, (1+var/100)*eta_x)
         beta_hs = rd.uniform((1-var/100)*beta_h, (1+var/100)*beta_h)
@@ -719,6 +719,7 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
 
