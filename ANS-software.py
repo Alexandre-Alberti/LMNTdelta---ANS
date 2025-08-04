@@ -53,10 +53,10 @@ delta = st.number_input("delta")
 #Cost of early replacement after time lag delta
 def Cep(time_lag):
     if time_lag <= delta_lim:
-        Cep = C1*time_lag + C2
+        Cepval = C1*time_lag + C2
     else:
-        Cep = C3
-    return (Cep)
+        Cepval = C3
+    return (Cepval)
 
 def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,detal_lim,Dp,Df):
     
@@ -726,5 +726,6 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
