@@ -50,7 +50,7 @@ N = int(N)
 T = st.number_input("T")
 delta = st.number_input("delta")
 
-def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,detal_lim,Dp,Df):
+def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,delta_lim,Dp,Df):
     
     C1 = (Cp - Cep_max)/(delta_lim - delta_min)
     C2 = Cep_max - C1*delta_min
@@ -672,7 +672,8 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
     cost_rate = EC/EV
     MTBOF = EV/P6
     availability = 1 - (ED/EV)
-    
+
+    print(cost_rate, MTBOF, availability)
     
     return (P_total, EC, EV, ED, cost_rate, MTBOF, availability, P1, P2, P3, P4, P5, P6)
 
@@ -714,12 +715,12 @@ def ANS(L,M,N,T,delta):
 # Executar
 if st.button("Calculate Expected Performance"):
     with st.spinner('⏳ Calculating...'):
-        results = policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,detal_lim,Dp,Df)
+        results = policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,delta_lim,Dp,Df)
 
     st.success("✅")
     st.markdown("**Maintenance policy performance metrics**")
     st.write({
-        "Cost-rate": results[4],
+        "Cost-rate": results[4]
         "MTBOF (mean time between failures after policy implementation)": results[5],
         "Availability": results[6]
     })
@@ -739,6 +740,7 @@ if st.button("Sensitivity Analysis"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
 
