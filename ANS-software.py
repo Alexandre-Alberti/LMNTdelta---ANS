@@ -720,7 +720,7 @@ if st.button("Calculate Expected Performance"):
     st.success("✅")
     st.markdown("**Maintenance policy performance metrics**")
     st.write({
-        "Cost-rate": results[4]
+        "Cost-rate": results[4],
         "MTBOF (mean time between failures after policy implementation)": results[5],
         "Availability": results[6]
     })
@@ -740,6 +740,7 @@ if st.button("Sensitivity Analysis"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
 
