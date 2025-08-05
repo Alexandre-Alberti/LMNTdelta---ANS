@@ -549,7 +549,6 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
             EC6_5 = dblquad(lambda h, x: (Y*Ci + (x - L*T)*lbda*Coi + Cf)*fx(x)*fh(h)*Rw(h), Y*T, M*T, lambda x: 0, lambda x: N*T-x)[0]
             EC6_6 = (Y*Ci + (M-L)*T*lbda*Coi + Cf)*P6_6
             EC6 = EC6_1 + EC6_2 + EC6_3 + EC6_4 + EC6_5 + EC6_6
-            print('EC6', EC6)
             
             EV6_3 = sum(
                 dblquad(lambda h, x: (x+h+Df)*fx(x)*fh(h)*Rw(h), (i-1)*T, i*T, lambda x: 0, lambda x: i*T-x)[0]
@@ -623,7 +622,6 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
             EC6_5 = dblquad(lambda h, x: (Y*Ci + (x-L*T)*lbda*Coi + Cf)*fx(x)*fh(h)*Rw(h), L*T, M*T, lambda x: 0, lambda x: N*T-x)[0]
             EC6_6 = (Y*Ci + (M-L)*T*lbda*Coi + Cf)*P6_6
             EC6 = EC6_1 + EC6_2 + EC6_3 + EC6_4 + EC6_5 + EC6_6
-            print('EC6', EC6, EC6_1, EC6_2, EC6_3, EC6_4, EC6_5, EC6_6)
             
             EV6_3 = dblquad(lambda h, x: (x+h+Df)*fx(x)*fh(h), Y*T, L*T, lambda x: 0, lambda x: L*T-x)[0]
             EV6_4 = dblquad(lambda h, x: (x+h+Df)*fx(x)*fh(h)*Rw(x+h-L*T), Y*T, L*T, lambda x: L*T-x, lambda x: N*T-x)[0]
@@ -645,8 +643,7 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
             EC6_3 = dblquad(lambda h, x: ((x-L*T)*lbda*Coi + Cf)*fx(x)*fh(h)*Rw(h), L*T, M*T, lambda x: 0, lambda x: N*T-x)[0]
             EC6_4 = ((M-L)*T*lbda*Coi + Cf)*P6_4
             EC6 = EC6_1 + EC6_2 + EC6_3 + EC6_4
-            print('EC6', EC6, EC6_1, EC6_2, EC6_3, EC6_4)
-            
+
             EV6_1 = dblquad(lambda h, x: (x+h+Df)*fx(x)*fh(h), 0, L*T, lambda x: 0, lambda x: L*T-x)[0]
             EV6_2 = dblquad(lambda h, x: (x+h+Df)*fx(x)*fh(h)*Rw(x+h-L*T), 0, L*T, lambda x: L*T-x, lambda x: N*T-x)[0]
             EV6_3 = dblquad(lambda h, x: (x+h+Df)*fx(x)*fh(h)*Rw(h), L*T, M*T, lambda x: 0, lambda x: N*T-x)[0]
@@ -738,8 +735,9 @@ if st.button("Sensitivity Analysis"):
         "Mean MTBOF (mean time between failures)": results[2],
         "MTBOF standard deviation": results[3],
         "Mean availability": results[4],
-        "Availability standard deviation": results[6]
+        "Availability standard deviation": results[5]
     })
+
 
 
 
