@@ -53,7 +53,7 @@ delta = st.number_input("delta")
 def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,detal_lim,Dp,Df):
     
     C1 = (Cp - Cep_max)/(delta_lim - delta_min)
-    C2 = Cep_max - C1*delta_lim
+    C2 = Cep_max - C1*delta_min
     C3 = Cp
      
     def Cep(time_lag):
@@ -68,7 +68,11 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
     
     # Functions for X (time to defect arrival)
     def fx(x):
-        return (beta_x / eta_x) * ((x / eta_x) ** (beta_x - 1)) * np.exp(-((x / eta_x) ** beta_x))
+        if x == 0:
+            fx_ = 0
+        else:
+            fx_ = (beta_x / eta_x) * ((x / eta_x) ** (beta_x - 1)) * np.exp(-((x / eta_x) ** beta_x))
+        return fx_
     def Rx(x):
         return np.exp(-((x / eta_x) ** beta_x))
     def Fx(x):
@@ -76,7 +80,11 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
 
     # Functions for H (delay-time)
     def fh(h):
-        return (beta_h / eta_h) * ((h / eta_h) ** (beta_h - 1)) * np.exp(-((h / eta_h) ** beta_h))
+        if h == 0:
+            fh_ = 0
+        else:
+            fh_ = (beta_h / eta_h) * ((h / eta_h) ** (beta_h - 1)) * np.exp(-((h / eta_h) ** beta_h))
+        return fh_
     def Rh(h):
         return np.exp(-((h / eta_h) ** beta_h))
     def Fh(h):
@@ -670,11 +678,11 @@ def policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max
 
 def ANS(L,M,N,T,delta):
     
-    sample_cr = np.zeros(50)
-    sample_mtbof = np.zeros(50)
-    sample_av = np.zeros(50)
+    sample_cr = np.zeros(100)
+    sample_mtbof = np.zeros(100)
+    sample_av = np.zeros(100)
     
-    for i in range(0,50):
+    for i in range(0,100):
         beta_xs = rd.uniform((1-var/100)*beta_x, (1+var/100)*beta_x)
         eta_xs = rd.uniform((1-var/100)*eta_x, (1+var/100)*eta_x)
         beta_hs = rd.uniform((1-var/100)*beta_h, (1+var/100)*beta_h)
@@ -704,7 +712,19 @@ def ANS(L,M,N,T,delta):
     return(cr_mean, cr_std, mtbof_mean, mtbof_std, av_mean, av_std)
 
 # Executar
-if st.button("Get Results"):
+if st.button("Calculate Expected Performance"):
+    with st.spinner('⏳ Calculating...'):
+        results = policy(L,M,N,T,delta,beta_x,eta_x,beta_h,eta_h,lbda,Cp,Cop,Ci,Coi,Cf,Cep_max,delta_min,detal_lim,Dp,Df)
+
+    st.success("✅")
+    st.markdown("**Maintenance policy performance metrics**")
+    st.write({
+        "Cost-rate": results[4],
+        "MTBOF (mean time between failures after policy implementation)": results[5],
+        "Availability": results[6]
+    })
+
+if st.button("Sensitivity Analysis"):
     with st.spinner('⏳ Running sensitivity analysis...'):
         
         results = ANS(L,M,N,T,delta)
@@ -719,6 +739,7 @@ if st.button("Get Results"):
         "Mean availability": results[4],
         "Availability standard deviation": results[6]
     })
+
 
 
 
